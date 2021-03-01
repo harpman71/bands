@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Search from './components/Search';
 import DataItems from './components/DataItems';
+import ShowBio from './components/ShowBio';
 
 
 class App extends React.Component {
@@ -46,11 +47,14 @@ class App extends React.Component {
   /*ES7 */
   state = {
     data:[],
-    searchData: []
+    searchData: [],
+    titleModal: null,
+    bodyModal: null,
+    showModal: false
   }; 
 
-  initBooks = () => {
-      console.log('entra acá');
+  initArtist = () => {
+      //console.log('entra acá');
       this.setState((state,props) => ({
         searchData: [...state.data]
       }));
@@ -61,7 +65,7 @@ class App extends React.Component {
         .then(response => response.json())
         .then(data => {
           this.setState({ data: data });
-          this.initBooks();
+          this.initArtist();
           });        
     } 
 
@@ -76,12 +80,37 @@ class App extends React.Component {
     this.setState({searchData: res});      
     }
 
+  handleShowBio = (id) => {
+    const result = this.state.searchData.filter((a) => a.id === id);
+    this.setState({
+      titleModal: result[0].name,
+      bodyModal: result[0].bio,
+      showModal: true
+      });    
+    }
+
+  handleCloseModal = () => {
+    this.setState({
+      showModal: false,
+      titleModal: null,
+      bodyModal: null      
+      });    
+    }
+
   render(){    
     return (
         <div className="App">                
             <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
               <Search handleSearch={this.handleSearch}/>  
-              <DataItems items={this.state.searchData}/>
+              <DataItems handleShowBio={this.handleShowBio} items={this.state.searchData}/>
+              {this.state.showModal &&
+              <ShowBio
+              title = {this.state.titleModal}
+              body = {this.state.bodyModal}
+              visible = {this.state.showModal}
+              handleCloseModal={this.handleCloseModal}
+              />
+              }
             </div>          
         </div>
       );

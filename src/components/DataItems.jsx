@@ -1,8 +1,6 @@
 import React from 'react';
 
-
-const DataItems = (props) =>{    
-    ///console.log(props.search.items);
+const DataItems = (props) =>{  
     return(
         <>            
             <div className="row mt-5">
@@ -11,12 +9,18 @@ const DataItems = (props) =>{
                     return (
                         <div key={item.id} className="col">
                             <small>{item.name}</small>
-                            <img src={item.image} className="img-fluid mx-auto d-block" alt={item.name}></img>                            
+                            <a href="#" onClick={props.handleShowBio.bind(this, item.id)}>
+                                <img 
+                                src={item.image} 
+                                className="img-fluid mx-auto d-block" 
+                                alt={item.name}                            
+                                />     
+                            </a>                       
                         </div>
                         )
                 })
                 }
-            </div>                   
+            </div>                              
         </> 
     )
 }
