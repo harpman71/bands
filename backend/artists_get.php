@@ -1,9 +1,10 @@
 <?php
 header('Content-type:application/json;charset=utf-8');
-$conexion = mysqli_connect("localhost", "root", "password", "database");
+
+$conexion = mysqli_connect("host", "root", "password", "database");
 
 
-$resultado = mysqli_query($conexion, "select * from artists order by id");
+$resultado = mysqli_query($conexion, "select * from artists order by id order by name");
 
 $artists = array();
 
