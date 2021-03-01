@@ -22,7 +22,11 @@ const ShowBio = (props) =>{
                         <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div align="justify" className="modal-body" style={{'white-space': 'pre-line'}}>
+                    <div 
+                        align="justify" 
+                        className="modal-body" 
+                        style={{'white-space': 'pre-line'}}
+                    >
                         {props.body}       
                     </div>      
                 </div>
