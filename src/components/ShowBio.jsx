@@ -25,7 +25,7 @@ const ShowBio = (props) =>{
                     <div 
                         align="justify" 
                         className="modal-body" 
-                        style={{'white-space': 'pre-line'}}
+                        style={{'whiteSpace': 'pre-line'}}
                     >
                         {props.body}       
                     </div>      
