@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Search from './components/Search';
+import Loading from './components/Loading';
 import DataItems from './components/DataItems';
 import ShowBio from './components/ShowBio';
 
@@ -54,13 +55,12 @@ class App extends React.Component {
   }; 
 
   initArtist = () => {
-      //console.log('entra acá');
       this.setState((state,props) => ({
         searchData: [...state.data]
       }));
     }
 
- componentDidMount = () =>{  
+  componentDidMount = () =>{  
     fetch('https://mauriciofranco.com/dev/data.php')
         .then(response => response.json())
         .then(data => {
@@ -97,12 +97,18 @@ class App extends React.Component {
       });    
     }
 
-  render(){    
+  render(){        
     return (
         <div className="App">                
             <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-              <Search handleSearch={this.handleSearch}/>  
-              <DataItems handleShowBio={this.handleShowBio} items={this.state.searchData}/>
+              <Search handleSearch={this.handleSearch}/>
+              {this.state.data.length===0 ?
+              <Loading/>:
+              <DataItems 
+                handleShowBio={this.handleShowBio} 
+                items={this.state.searchData}
+              />
+              }
               {this.state.showModal &&
               <ShowBio
               title = {this.state.titleModal}
@@ -111,6 +117,7 @@ class App extends React.Component {
               handleCloseModal={this.handleCloseModal}
               />
               }
+            
             </div>          
         </div>
       );
