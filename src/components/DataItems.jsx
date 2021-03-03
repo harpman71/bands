@@ -7,7 +7,7 @@ const DataItems = (props) =>{
                 {
                 props.items.map(item => { 
                     return (
-                        <div key={item.id} className="col">
+                        <div key={item.id} className="col-md-3">
                             <small>{item.name}</small>
                             <a href="#" onClick={props.handleShowBio.bind(this, item.id)}>
                                 <img 
