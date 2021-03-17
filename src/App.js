@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState, useEffect } from 'react';
 import './App.css';
 import Search from './components/Search';
 import Loading from './components/Loading';
@@ -6,122 +6,73 @@ import DataItems from './components/DataItems';
 import ShowBio from './components/ShowBio';
 
 
-class App extends React.Component {
-/*ES6 */
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     data:[],
-  //     searchData: []
-  //   };    
-  //   this.handleSearch = this.handleSearch.bind(this);
-    
-  // }    
-  
-  // initBooks(){
-  //   console.log('entra acá');
-  //   this.setState((state,props) => ({
-  //     searchData: [...state.data]
-  //   }));
-  // }
+const App = () => {
 
-  // componentDidMount(){  
-  //   fetch('https://mauriciofranco.com/dev/data.php')
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         this.setState({ data: data });
-  //         this.initBooks();
-  //         });        
-  // }
+  const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+  const [titleModal, setTitleModal] = useState(null);
+  const [bodyModal, setBodyModal] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  // handleSearch(e){
-  //   let query = e.target.value.toString().toLowerCase();
-  //   let res = [];
-  //   this.state.data.forEach(item =>{
-  //       if(item.name.toLowerCase().indexOf(query) > -1){
-  //           res.push(item);
-  //           }
-  //       });
-  //   this.setState({searchData: res});      
-  //   }
-
-  /*ES7 */
-  state = {
-    data:[],
-    searchData: [],
-    titleModal: null,
-    bodyModal: null,
-    showModal: false
-  }; 
-
-  initArtist = () => {
-      this.setState((state,props) => ({
-        searchData: [...state.data]
-      }));
-    }
-
-  componentDidMount = () =>{  
+  useEffect(() =>{  
     fetch('https://mauriciofranco.com/dev/data.php')
         .then(response => response.json())
         .then(data => {
-          this.setState({ data: data });
-          this.initArtist();
+          setData(data);
+          setSearchData(data);
           });        
-    } 
+    },[]);
 
-  handleSearch = (e) => {
+  const handleSearch = (e) => {
     let query = e.target.value.toString().toLowerCase();
     let res = [];
-    this.state.data.forEach(item =>{
+    data.forEach(item =>{
         if(item.name.toLowerCase().indexOf(query) > -1){
             res.push(item);
             }
         });
-    this.setState({searchData: res});      
+        setSearchData(res);      
     }
 
-  handleShowBio = (id) => {
-    const result = this.state.searchData.filter((a) => a.id === id);
-    this.setState({
-      titleModal: result[0].name,
-      bodyModal: result[0].bio,
-      showModal: true
-      });    
+  const handleShowBio = (id) => {
+    console.log(id);
+    const result = searchData.filter((a) => a.id === id);
+    setTitleModal(result[0].name);
+    setBodyModal(result[0].bio);
+    setShowModal(true);         
     }
 
-  handleCloseModal = () => {
-    this.setState({
-      showModal: false,
-      titleModal: null,
-      bodyModal: null      
-      });    
+  const handleCloseModal = () => {
+    setShowModal(false); 
+    setTitleModal(null);
+    setBodyModal(null);        
     }
 
-  render(){        
-    return (
-        <div className="App">                
-            <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-              <Search handleSearch={this.handleSearch}/>
-              {this.state.data.length===0 ?
-              <Loading/>:
-              <DataItems 
-                handleShowBio={this.handleShowBio} 
-                items={this.state.searchData}
-              />
-              }
-              {this.state.showModal &&
-              <ShowBio
-              title = {this.state.titleModal}
-              body = {this.state.bodyModal}
-              visible = {this.state.showModal}
-              handleCloseModal={this.handleCloseModal}
-              />
-              }
-            
-            </div>          
-        </div>
-      );
-    }
-};
+         
+  return (
+      <div className="App">                
+          <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <Search handleSearch={handleSearch}/>
+            {data.length===0 ?
+            <Loading/>:
+            <DataItems 
+              handleShowBio={handleShowBio} 
+              items={searchData}
+            />
+            }
+            {showModal &&
+            <ShowBio
+            title = {titleModal}
+            body = {bodyModal}
+            visible = {showModal}
+            handleCloseModal={handleCloseModal}
+            />
+            }
+          
+          </div>          
+      </div>
+    );
+  }
+
 
 export default App;
