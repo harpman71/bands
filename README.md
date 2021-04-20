@@ -24,4 +24,4 @@ Your app is ready to be deployed!
 
 ### Project online
 
-<!-- See the project running here: [http://localhost:3000](http://localhost:3000) -->
+See the project running here: [https://vigilant-agnesi-489260.netlify.app/](https://vigilant-agnesi-489260.netlify.app/)
