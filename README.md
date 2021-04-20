@@ -24,4 +24,4 @@ Your app is ready to be deployed!
 
 ### Project online
 
-See the project running here: [https://vigilant-agnesi-489260.netlify.app/](https://vigilant-agnesi-489260.netlify.app/){:target="_blank"}
+See the project running here: <a href="https://vigilant-agnesi-489260.netlify.app/" target="_blank">https://vigilant-agnesi-489260.netlify.app/</a>
