@@ -1,22 +1,13 @@
 import React from 'react';
 
-const Search = (props) => {  
-    
-     return(
+const Search = ({search, searchInput, handleSearch}) => {
+    return ( 
         <nav className="nav justify-content-center navbar fixed-top  navbar-dark bg-dark mb-5">
             <form className="form-inline">
-                <input 
-                    name="search"
-                    className="form-control mr-sm-2" 
-                    type="search" 
-                    placeholder="Search" 
-                    aria-label="Search"
-                    onChange={props.handleSearch}
-                />
-               
+            <input className="form-control mr-sm-2" type="text" value={search} ref={searchInput} onChange={handleSearch}/>
             </form>
-        </nav>        
-        )
+        </nav>
+     );
 }
-
+ 
 export default Search;

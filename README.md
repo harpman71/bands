@@ -1,4 +1,4 @@
-# Music v 1.0
+# Bands v 1.0
 
 Simple React Bootstrap app for filtering artist data sourced from an API.
 
